@@ -161,7 +161,7 @@ const STORY_DATA = [
 const PRODUCT_INFO = {
   name: 'Lumen',
   tagline: '你家能源系统的意识',
-  description: '不是一个你需要打开的APP，而是一个持续运行、主动行动、偶尔向你汇报的能源智能体。',
+  description: '不是一个全新的APP，而是现有产品的智能升级——给你的能源系统装上一个会思考的大脑。',
   principles: [
     { title: '沉默即正常', desc: '95%的时间你感知不到它，这代表一切都好' },
     { title: '行动优于展示', desc: '它不给你看数据，它替你做决策' },
@@ -174,6 +174,167 @@ const PRODUCT_INFO = {
     { dimension: '用户角色', traditional: '操作者', lumen: '委托人' },
     { dimension: '成功标志', traditional: 'DAU高', lumen: '用户完全不想起这件事' }
   ]
+};
+
+// 和现有产品的关系
+const RELATIONSHIP = {
+  title: '不是替代，是升级',
+  subtitle: 'Lumen 是现有APP的智能层，不是另一个新产品',
+  layers: [
+    {
+      name: '主动触达层（新增）',
+      desc: 'Lumen 的核心价值',
+      detail: 'APP推送 / 短信 / 微信模板消息',
+      examples: ['日报摘要推送', '异常主动通知', '建议等待确认', '月度信链接'],
+      isNew: true
+    },
+    {
+      name: '对话层（新增）',
+      desc: '用户想深入了解时',
+      detail: 'APP内对话 / 微信客服对话',
+      examples: ['追问电费原因', '咨询加装建议', '修改偏好设置', '查看历史决策'],
+      isNew: true
+    },
+    {
+      name: '现有APP（改造）',
+      desc: '深度查看和管理',
+      detail: '保留但角色转变：从"日常入口"变成"后台管理"',
+      examples: ['设备详情和健康状态', '历史数据图表', '家庭成员管理', '授权级别设置'],
+      isNew: false
+    },
+    {
+      name: '硬件层（不变）',
+      desc: '数据采集和执行',
+      detail: '自研逆变器 / 储能 / 充电桩',
+      examples: ['实时数据上报', '接收调度指令', '本地安全保护', '固件OTA'],
+      isNew: false
+    }
+  ],
+  keyPoint: '用户日常体验的变化：从"主动打开APP查看" → "被动收到关键信息，需要时再打开APP深入看"。APP的DAU会下降，但用户满意度和留存会上升。'
+};
+
+// Phase 1 具体方案
+const PHASE1_DETAIL = {
+  title: 'Phase 1：能说话的能源报告',
+  duration: '8-12周',
+  goal: '让用户第一次感受到"系统在主动跟我说话"',
+
+  dataInputs: {
+    title: '数据输入（已有）',
+    items: [
+      { field: '光伏实时功率', source: '逆变器上报', frequency: '5秒/次' },
+      { field: '日/月累计发电量', source: '逆变器上报', frequency: '实时累计' },
+      { field: '储能SOC/充放电功率', source: 'BMS上报', frequency: '10秒/次' },
+      { field: '并网/离网状态', source: '逆变器上报', frequency: '事件触发' },
+      { field: '充电桩状态/电量', source: '充电模块上报', frequency: '实时' },
+      { field: '电网购电/卖电量', source: '电表数据', frequency: '分钟级' }
+    ]
+  },
+
+  dataExternal: {
+    title: '外部数据（需接入）',
+    items: [
+      { field: '天气预报', source: '和风天气API', effort: '1天' },
+      { field: '分时电价', source: '各地电力公司公开数据', effort: '3天' },
+      { field: '日出日落时间', source: '天文算法本地计算', effort: '0.5天' }
+    ]
+  },
+
+  promptExample: {
+    title: 'LLM Prompt 示例',
+    system: '你是 Lumen，一个家庭能源AI助手。你的语气温和、简洁、像一个靠谱的管家。你只说用户需要知道的事，不堆数据。每条消息控制在3-5句话。金额精确到元，电量精确到度。',
+    input: '今日数据：发电 18.3kWh，自用 12.1kWh，卖电 6.2kWh，买电 0kWh。储能从 45% 充到 92%。天气：晴。明日预报：多云转阴。昨日同期：发电 19.1kWh。本月累计节省：¥342。',
+    output: '今天阳光不错，发了18.3度电，全部自给自足没买电网的电。储能也从45%充到了92%。明天转阴，产能会下降，不过储能够用。本月已经帮你省了¥342。'
+  },
+
+  mvpScope: {
+    title: 'MVP 范围（第一个可上线版本）',
+    include: [
+      '每日晚8点推送一条日报摘要（APP推送）',
+      '异常事件实时通知（停电、设备离线、产能骤降）',
+      '每月1号生成月度信（H5页面，推送链接）'
+    ],
+    exclude: [
+      '对话能力（Phase 2）',
+      '自动控制（Phase 3）',
+      '多家庭成员（Phase 2）',
+      '电价套利建议（Phase 1.5，日报稳定后加入）'
+    ]
+  },
+
+  timeline: [
+    { week: '1-2', task: '数据管道搭建', detail: '从现有设备数据平台抽取结构化日报数据，接入天气API' },
+    { week: '3-4', task: 'Prompt工程 + 内容生成', detail: '设计日报/异常/月报的prompt模板，用历史数据批量测试生成质量' },
+    { week: '5-6', task: '推送通道打通', detail: 'APP推送集成，月度信H5页面开发' },
+    { week: '7-8', task: '内测', detail: '选10-20个内部员工家庭试用，收集反馈调优prompt' },
+    { week: '9-10', task: '灰度发布', detail: '选100个活跃用户灰度，监控推送打开率和退订率' },
+    { week: '11-12', task: '正式上线', detail: '全量推送，同步上线用户反馈入口' }
+  ],
+
+  resources: [
+    { role: '后端工程师', count: 1, task: '数据管道 + API对接' },
+    { role: 'LLM应用工程师', count: 1, task: 'Prompt设计 + 生成质量保障' },
+    { role: '前端工程师', count: 1, task: '月度信H5 + 推送集成' },
+    { role: '产品经理', count: 0.5, task: '内容策略 + 用户测试' }
+  ],
+
+  successMetrics: [
+    { metric: '日报推送打开率', target: '>40%', baseline: '当前APP日活率约5-8%' },
+    { metric: '月度信阅读完成率', target: '>60%' },
+    { metric: '用户主动退订率', target: '<5%' },
+    { metric: '用户满意度（NPS）', target: '>50' }
+  ]
+};
+
+// 模拟真实数据生成的月度信
+const REAL_DATA_LETTER = {
+  title: '真实数据演示',
+  subtitle: '以下是用一个真实家庭的模拟数据，经LLM生成的月度信',
+  userData: {
+    location: '浙江杭州',
+    system: '10kW光伏 + 10kWh储能 + 7kW充电桩',
+    household: '四口之家，一辆纯电车',
+    month: '2026年5月'
+  },
+  rawData: {
+    generation: 486,
+    consumption: 412,
+    gridExport: 127,
+    gridImport: 53,
+    batteryCharge: 289,
+    batteryDischarge: 276,
+    evCharge: 186,
+    peakPrice: 1.2,
+    valleyPrice: 0.38,
+    savedAmount: 623,
+    selfSufficiency: 87,
+    daysOffGrid: 0,
+    anomalies: ['5月12日组串2产能下降4小时（原因：临时施工遮挡，已恢复）'],
+    gridOutage: '5月18日停电2.5小时，储能全程覆盖',
+    bestDay: '5月3日，发电31.2kWh，全天零购电',
+    worstDay: '5月21日，连续暴雨，发电仅4.8kWh'
+  },
+  generatedLetter: `五月过去了。
+
+你家这个月发了486度电，用了412度。多出来的电卖了127度给电网，赚了¥58.4。另外有53度是从电网买的，主要集中在21号那场连续暴雨。
+
+整体算下来，本月帮你省了¥623。
+
+有几件事值得说一下：
+
+5月18号下午，你们小区停电了2个半小时。你家储能撑住了全部负载，没有任何感知。这是你家系统第一次真正"派上用场"的时刻。
+
+5月12号上午，我发现组串2产能突然下降，排查后确认是隔壁楼施工的吊车临时遮挡，4小时后恢复正常。当时没打扰你，因为判断是临时性的。
+
+你儿子这个月在家充了186度电，其中91%是在谷时完成的（自从上次设置了自动排程之后）。比峰时充电省了¥89。
+
+本月最好的一天是5月3号——晴天，发了31.2度，全天没买一度电网的电。
+
+下个月进入夏天，空调用电会上升，但日照也更长。我预计6月发电量会到520-550度，足够覆盖空调增量。
+
+—— Lumen
+
+系统运行第3个月 | 累计节省 ¥1,847 | 回本进度 12.3% | 能源自给率 87%`
 };
 
 const ROADMAP = [

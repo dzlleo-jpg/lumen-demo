@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Lumen - 你家能源系统的意识</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 首页 -->
+  <section id="landing" class="page active">
+    <div class="landing-content">
+      <div class="logo-glow"></div>
+      <h1 class="brand-name">Lumen</h1>
+      <p class="brand-tagline">你家能源系统的意识</p>
+      <div class="landing-desc">
+        <p>不是一个需要下载的APP</p>
+        <p>而是一个活在微信里的能源智能体</p>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">产品形态</h3>
+        <div class="form-item">
+          <span class="form-label">主通道</span>
+          <span class="form-value">微信服务号 — 零安装，消息直达，支持对话</span>
+        </div>
+        <div class="form-item">
+          <span class="form-label">深度内容</span>
+          <span class="form-value">H5 网页 — 月度信、报告，从消息点进去</span>
+        </div>
+        <div class="form-item">
+          <span class="form-label">管理后台</span>
+          <span class="form-value">小程序 — 授权、设备、成员，一年开3次</span>
+        </div>
+      </div>
+
+      <div class="principles">
+        <h3 class="section-title">设计原则</h3>
+        <div class="principle-item">
+          <span class="principle-icon">&#9679;</span>
+          <div>
+            <strong>沉默即正常</strong>
+            <span>95%的时间你感知不到它</span>
+          </div>
+        </div>
+        <div class="principle-item">
+          <span class="principle-icon">&#9679;</span>
+          <div>
+            <strong>行动优于展示</strong>
+            <span>它替你做决策，不只给你看数据</span>
+          </div>
+        </div>
+        <div class="principle-item">
+          <span class="principle-icon">&#9679;</span>
+          <div>
+            <strong>信任渐进</strong>
+            <span>从建议到自主，按你的节奏来</span>
+          </div>
+        </div>
+        <div class="principle-item">
+          <span class="principle-icon">&#9679;</span>
+          <div>
+            <strong>去用户在的地方</strong>
+            <span>不让用户装APP，去微信里找他</span>
+          </div>
+        </div>
+      </div>
+      <button id="start-btn" class="cta-button">
+        体验 Lumen 的第一个月
+        <span class="btn-arrow">&rarr;</span>
+      </button>
+      <p class="start-hint">以下模拟用户在微信中收到的真实消息</p>
+    </div>
+  </section>
+
+  <!-- 时间轴页 -->
+  <section id="timeline" class="page">
+    <div class="timeline-header">
+      <div class="timeline-progress">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="timeline-nav">
+        <span class="nav-day" id="nav-day">Day 1</span>
+        <span class="nav-title" id="nav-title">初次见面</span>
+      </div>
+    </div>
+
+    <div class="cards-container" id="cards-container">
+      <!-- Cards rendered by JS -->
+    </div>
+
+    <div class="timeline-footer">
+      <div class="nav-buttons">
+        <button class="nav-btn" id="btn-prev">&larr; 上一天</button>
+        <div class="dot-indicators" id="dot-indicators"></div>
+        <button class="nav-btn" id="btn-next">下一天 &rarr;</button>
+      </div>
+      <div class="swipe-hint" id="swipe-hint">点击按钮或左右滑动浏览</div>
+    </div>
+  </section>
+
+  <!-- 末页：路径图 -->
+  <section id="roadmap" class="page">
+    <div class="roadmap-content">
+      <h2 class="roadmap-title">从愿景到落地</h2>
+      <p class="roadmap-subtitle">三个阶段，每一步都有独立的用户价值</p>
+
+      <div class="phases">
+        <div class="phase-card">
+          <div class="phase-header">
+            <span class="phase-number">01</span>
+            <span class="phase-duration">3个月</span>
+          </div>
+          <h3>能说话的能源报告</h3>
+          <p class="phase-desc">接入现有硬件数据，用AI生成自然语言的日报/周报/月报</p>
+          <div class="phase-value">
+            <span class="value-label">用户价值</span>
+            <span>从"看不懂的图表"变成"一句话告诉我今天怎么样"</span>
+          </div>
+        </div>
+
+        <div class="phase-connector"></div>
+
+        <div class="phase-card">
+          <div class="phase-header">
+            <span class="phase-number">02</span>
+            <span class="phase-duration">6个月</span>
+          </div>
+          <h3>能对话的能源顾问</h3>
+          <p class="phase-desc">加入对话能力和外部数据，用户可以随时提问，系统开始学习偏好</p>
+          <div class="phase-value">
+            <span class="value-label">用户价值</span>
+            <span>从"被动看报告"变成"有个懂行的人可以随时问"</span>
+          </div>
+        </div>
+
+        <div class="phase-connector"></div>
+
+        <div class="phase-card">
+          <div class="phase-header">
+            <span class="phase-number">03</span>
+            <span class="phase-duration">12个月</span>
+          </div>
+          <h3>能行动的能源代理</h3>
+          <p class="phase-desc">接入设备控制API，AI自主执行决策，渐进式获取用户授权</p>
+          <div class="phase-value">
+            <span class="value-label">用户价值</span>
+            <span>从"给我建议"变成"替我做好了"</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="comparison-section">
+        <h3 class="comparison-title">本质区别</h3>
+        <div class="comparison-table">
+          <div class="comp-row comp-header">
+            <span></span>
+            <span>传统能源APP</span>
+            <span>Lumen</span>
+          </div>
+          <div class="comp-row">
+            <span>核心交互</span>
+            <span>用户打开APP看数据</span>
+            <span class="highlight">系统在需要时找你</span>
+          </div>
+          <div class="comp-row">
+            <span>价值交付</span>
+            <span>数据可视化</span>
+            <span class="highlight">决策执行 + 叙事解释</span>
+          </div>
+          <div class="comp-row">
+            <span>用户角色</span>
+            <span>操作者</span>
+            <span class="highlight">委托人</span>
+          </div>
+          <div class="comp-row">
+            <span>成功标志</span>
+            <span>DAU高、时长长</span>
+            <span class="highlight">用户完全不想起这件事</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="final-statement">
+        <p>Lumen 的终极形态：</p>
+        <p class="statement-highlight">你忘了它的存在，但你的电费账单每个月都在变少，你的家在每次极端天气中都安然无恙，你偶尔收到一封信，告诉你一切都好。</p>
+      </div>
+
+      <button id="restart-btn" class="cta-button secondary">
+        重新体验
+      </button>
+    </div>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
